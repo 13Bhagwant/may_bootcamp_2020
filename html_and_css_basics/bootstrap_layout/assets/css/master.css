@@ -1,0 +1,15 @@
+.home-section img {
+    height: 50vh;
+  }
+  
+  .welcome-msg-container {
+    min-height: 50vh;
+  }
+  
+  .contact-section {
+    margin-top: 1em;
+  }
+  
+  .heading {
+    text-align: center;
+  }
