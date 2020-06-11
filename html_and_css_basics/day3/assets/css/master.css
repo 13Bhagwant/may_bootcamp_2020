@@ -1,0 +1,18 @@
+@import url(reset.css);
+
+/* Mobile first styles */
+/* 
+    A mobile-first approach to styling means that styles are applied first to mobile devices.
+    Code for larger screens is usually more complicated than the codes(styles) for smaller screens.
+    This is why styling mobile first helps simplify your code.
+    Advanced styles and other overrides for larger screens are then added into the stylesheet via
+    media queries. This approach uses min-width media queries.
+*/
+
+body {
+  font-family: "Thasadith", "Poppins", sans-serif;
+  font-size: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
