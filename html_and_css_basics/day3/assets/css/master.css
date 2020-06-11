@@ -19,7 +19,7 @@ body {
 
 p,
 li {
-  font-size: 1.2em;
+  font-size: 1em;
   font-weight: 600;
 }
 
@@ -116,4 +116,38 @@ button:hover {
   background-color: black;
   color: white;
   cursor: pointer;
+}
+
+.image {
+  background-image: url("https://static0.thethingsimages.com/wordpress/wp-content/uploads/2018/08/Kittens-via-WallpaperSite.jpg");
+  background-repeat: unset;
+  background-size: cover;
+}
+
+/* Desktop or IPad Styles Last */
+@media (min-width: 600px) {
+  /* 
+        min-width should be at least 600px or more for below styles
+    */
+  body {
+    background-color: red;
+    padding: 2em;
+  }
+
+  article {
+    flex-direction: row;
+  }
+
+  .b-text {
+    order: -1;
+  }
+
+  .menu {
+    flex-direction: row;
+  }
+}
+@media (min-width: 900px) {
+  body {
+    background-color: blue;
+  }
 }
