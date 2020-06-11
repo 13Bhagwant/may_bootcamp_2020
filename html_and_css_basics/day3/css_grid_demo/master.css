@@ -1,0 +1,59 @@
+.grid-container {
+    display: grid;
+    /* grid-template-columns: 1fr 2fr 1fr; */
+    /* grid-template-columns: 1fr 1fr 1fr; */
+    /* grid-template-columns: repeat(4, 1fr); */
+    /* adding line names */
+    grid-template-columns: [far-left]1fr [col1-end]1fr [col2-end]1fr [col3-end]1fr [far-right];
+    /* grid-template-columns: 100px 1fr 1fr; */
+    /* grid-template-columns: repeat(4, 1fr); */
+    /* gap: 1em; */
+    /* column-gap: 1em;
+    row-gap: 2em; */
+    /*gap: 2em 1em; */ /* gap: row column */
+  
+    /* don't use the following properties from grid */
+    /* grid-auto-rows:
+    grid-template-rows: */
+    /* Belo we are saying the minimum row height should be 50px and the maximum is the content height */
+    grid-auto-rows: minmax(50px, max-content);
+  
+    /* grid-template-rows: 200px 400px auto; */
+    grid-auto-flow: row; /* default */
+    /* grid-auto-flow: column; */
+  }
+  
+  .grid-container > .boxes {
+    min-height: 20vh;
+    border: 1px solid black;
+  }
+  
+  /*
+  .grid-container > .boxes:nth-child(2) {
+    background-color: maroon;
+    color: white;
+    grid-column-start: 2;
+    grid-column-end: 4;
+    the shorthand property for the above two properties
+    grid-column: 2/4;
+    another version of shorthand for the above two properties
+    grid-column: 2 / span 2;
+  }
+  
+  .grid-container > .boxes:nth-child(4) {
+    background-color: lightblue;
+    grid-row-start: 2;
+    grid-row-end: 4;
+    the shorthand property for the above two properties
+    grid-row: 2 / 4;
+    another version of shorthand for the above two properties
+    grid-row: 2 / span 2;
+  }
+  */
+  
+  .grid-container > .boxes:nth-child(6) {
+    background-color: maroon;
+    color: white;
+    /* grid-area: 2/2/3/4; */
+    grid-area: 2 / col1-end/3/col3-end;
+  }
