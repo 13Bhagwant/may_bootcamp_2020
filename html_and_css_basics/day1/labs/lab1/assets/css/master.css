@@ -1,0 +1,30 @@
+@import url("https://fonts.googleapis.com/css?family=Fira+Sans|Roboto|Hepta+Slab&display=swap");
+@import url(reset.css);
+body{
+    background-image: linear-gradient(to top, #0FD850 0%, #F9F047 100%);
+    margin: 6vw;
+    padding:0 5em 0 5em;
+}
+div{
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.para ,.list{
+    font-family: Arial, Helvetica, sans-serif;
+}
+h1{
+    color: gray;
+}
+
+ul {
+    color: gold;
+    list-style: none;
+}
+ul > li {
+    color: black;
+    list-style:disc ;
+}
+
+div > ul >li {
+    list-style: none;
+}

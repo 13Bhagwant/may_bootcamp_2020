@@ -1,0 +1,168 @@
+@import url("https://fonts.googleapis.com/css?family=Fira+Sans|Roboto|Hepta+Slab&display=swap");
+@import url(reset.css);
+
+:root {
+  /* inside here declare all your variables then you can use them below */
+  --main-bg-color: gold;
+}
+
+.external-style-sheet {
+  list-style: none;
+  color: teal;
+}
+
+/* Types of selectors */
+/* 
+    1. Element(tag) selector for example (body, p, h1, section, etc...)
+    2. Id selector for example(#id-attribute-of-the-element)
+    3. Class & Pseudo-class selector (.external-style-sheet, div p:first-child, etc...)
+    4. Descendant selector (div p <= select all paragraph inside the div element no matter how many levels nested, 
+        div > p <= select all paragraphs that are DIRECTLY children of the div element)
+    5. Attribute selector (div['id=main-container'] <= this will select a div element that 
+        has an id attribute equal to 'main-container')
+*/
+
+body {
+  padding: 3em; /* this is equivalent to the following 4 css properties */
+  /* padding-top: 3em;
+  padding-right: 3em;
+  padding-bottom: 3em;
+  padding-left: 3em; */
+  /* padding: 0 3em 0 2em; */
+  /* padding: top | right | bottom | left */
+  /* margin shor-hand works the same as padding */
+  margin: 1em;
+  line-height: 1.2em;
+  font-family: "Fira Sans", sans-serif;
+  background-image: linear-gradient(
+    to top,
+    #f3e7e9 0%,
+    #e3eeff 99%,
+    #e3eeff 100%
+  );
+}
+
+h1 {
+  font-family: "Hepta Slab", serif;
+}
+
+p {
+  line-height: 1.2;
+  margin-bottom: 1em;
+}
+
+/* Hyperlink styles */
+a {
+  /* color: red; */
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+  color: darkgreen;
+}
+
+.fruit-varieties {
+  list-style-position: inside;
+  margin-left: 1em;
+}
+
+.test-btn {
+  background-image: linear-gradient(to top, #30cfd0 0%, #330867 100%);
+  color: white;
+  font-size: 2em;
+  width: 10vw;
+  height: 6vh;
+}
+
+.social-media-icons {
+  list-style: none;
+  margin-top: 1em;
+}
+
+.social-media-icons > li {
+  display: inline;
+  margin-top: 1em;
+}
+
+.social-media-icons > li > a > i {
+  color: black;
+}
+
+/* #highlight-id {
+  background-color: greenyellow;
+} */
+
+/* the specificity points for id (#highlight-id) is 100 points = 100 points */
+
+p.highlight {
+  margin-top: 1em;
+  background-color: yellow;
+}
+
+/* 1 point for element selector(p) + 10 points for class selector(.highlight) = 11 points */
+
+/* CSS Selectors and their specificity points */
+/* 
+1. Element selectors 
+
+example:
+body
+p
+ul 
+li
+a
+...
+
+(1 point)
+
+2. Psuedo class selectors
+
+.class-names
+(10 points)
+
+3. id selectors
+#id-name
+(100 points)
+
+4. descendant-selectors
+    a. direct children selector
+        ul > li <= select all (li)s that are directly inside (ul)
+    b. indirect children selector
+        ul li <= select all (li)s that inside ul, doesn't matter how many levels they are nested inside ul
+
+5. attribute selectors
+    p['class=article']  <= select paragraphs that have attribute class=article
+    input['name=username'] <= select an input tag that has attribute name=username
+*/
+
+content p.highlight {
+  /* DO NOT EVER USE !important keyword instead of being more specific */
+  /* background-color: blue !important; */
+  background-color: olivedrab;
+}
+
+/* 10 points for class selector (.highlight) + 1 point for tag (content) + 1 point for the tag (p)= 12 points */
+
+/* Psuedo-class selectors */
+
+.p-languages li:first-child {
+  background-color: var(--main-bg-color);
+}
+
+.p-languages li:last-child {
+  background-color: var(--main-bg-color);
+}
+
+.p-languages li:nth-child(3) {
+  background-color: teal;
+  color: yellow;
+}
+
+h1 {
+  background-color: var(--main-bg-color);
+}
+
+.p-languages li:not(.first-p-language) {
+  font-size: 2em;
+}
