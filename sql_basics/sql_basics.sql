@@ -262,3 +262,20 @@ SELECT COUNT(*) AS occurence, first_name
 FROM students
 GROUP BY first_name
 ORDER BY occurence DESC;
+
+-- UPDATE A ROW (RECORD)
+
+UPDATE students
+    SET first_name = 'UPDATED FIRST NAME'
+    WHERE id = 505;
+
+-- if we want to update then return the updated record(row)
+UPDATE students
+    SET first_name = 'ANOTHER NAME'
+    WHERE id = 505
+    RETURNING *;
+
+-- DELETE A ROW (RECORD)
+DELETE FROM students
+    WHERE id = 505
+    RETURNING *;
