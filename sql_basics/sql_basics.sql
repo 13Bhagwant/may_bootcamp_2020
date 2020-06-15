@@ -236,3 +236,29 @@ OFFSET
 -- The above query skips first 20 rows that we got back and starts after those 20 rows
 
 -- OFFSET combined with LIMIT can be used to implement pagination
+
+-- AGGREGATE FUNCTIONS
+-- Use these to do calculations on combination of your data
+-- For a full list of functions, checkout:
+-- https://www.postgresql.org/docs/9.5/functions-aggregate.html
+
+-- counting all fields inside students table
+SELECT COUNT(*) AS occurence
+FROM students;
+
+SELECT COUNT(*) AS student_count,
+    ROUND(AVG(age), 3) AS average_age,
+    SUM(age) AS total_age,
+    MIN(age) AS youngest_student,
+    MAX(age) AS oldest_student
+FROM students;
+
+-- Sometimes we want to do aggregate calculation
+-- on groupings of rows in our tables. Use GROUP BY to do that
+
+-- counting all students that has the same first_name and sets a new column
+-- named occurence 
+SELECT COUNT(*) AS occurence, first_name
+FROM students
+GROUP BY first_name
+ORDER BY occurence DESC;
