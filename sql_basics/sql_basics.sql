@@ -93,3 +93,146 @@ FROM students;
 -- To display only first_name, last_name, age columns do:
 SELECT first_name, last_name, age
 FROM students;
+
+-- Use WHERE statement to filter your data
+
+-- This will get all fields of the student that has id field = 1;
+SELECT *
+FROM students
+WHERE id = 1;
+
+-- Exercise1: Select all students whose IDs are more than 100
+SELECT *
+FROM students
+WHERE id > 100;
+
+-- Exercise2: Select all students whose age are more than 40
+SELECT *
+FROM students
+WHERE age > 40;
+
+-- Exercise3: Select all students that have been registered in teh last 800 days
+SELECT *
+FROM students
+WHERE registration_date > NOW() - INTERVAL
+'800' DAY;
+
+-- Using AND/OR
+
+-- select all students whose IDs more than a 100 and less than 200
+
+SELECT *
+FROM students
+WHERE id > 100 AND id < 200;
+
+-- if you want to select them inclusive 
+SELECT *
+FROM students
+WHERE id >= 100 AND id <= 200;
+
+-- Select all students whose age are more than 40 OR less than 20
+SELECT *
+FROM students
+WHERE age > 40 OR age < 20;
+
+-- IS NULL / IS NOT NULL
+
+-- select all students whose age is null 
+SELECT *
+FROM students
+WHERE age IS NULL;
+
+-- select all students whose age is not null 
+SELECT *
+FROM students
+WHERE age IS NOT NULL;
+
+-- select all students whose age is null OR less than 20
+
+SELECT *
+FROM students
+WHERE age IS NULL OR age < 20;
+
+-- Wildcards  (LIKE & ILIKE)
+
+-- Find all students whose first_name starts with 'Jo' (case sensitive)
+SELECT id, first_name
+FROM students
+WHERE first_name LIKE 'Jo%';
+
+-- select all students whose first_names or last_names contain 'nn'
+SELECT id, first_name, last_name
+FROM students
+WHERE first_name
+ILIKE '%nn%' OR last_name ILIKE '%nn%';
+
+-- BETWEEN
+
+
+-- Exercise1: Select all students whose ids between 150 and 200
+SELECT *
+FROM students
+WHERE id BETWEEN 150 AND 200;
+
+-- Exercise2: select all students that have been registered between 810 days ago and 800 days ago
+SELECT *
+FROM students
+WHERE registration_date BETWEEN NOW() - INTERVAL '810'
+DAY AND NOW
+() - INTERVAL '800' DAY;
+
+-- ORDER BY
+
+-- Find all students whose first_names begin with 'Jo' ordered by their last_name then age
+
+SELECT id, first_name, last_name, age
+FROM students
+WHERE first_name LIKE 'Jo%'
+ORDER BY age DESC, last_name ASC;
+
+-- Abov query will get all the students that their first_name start with 'Jo' then
+-- it orders them by age (Descending) finally, it orders two or more students that has
+-- the same age by their last_names in an Ascending order
+
+-- Find all students whose ages are more than 30 ordered by their first_names then last_names
+SELECT id, first_name, last_name, age
+FROM students
+WHERE age > 30
+ORDER BY first_name, last_name;
+
+-- LIMIT
+
+SELECT id, first_name, last_name, age
+FROM students
+WHERE age > 30
+ORDER BY first_name, last_name
+LIMIT 5;
+
+-- NOTE => Limit, limits the result that we get back and it should always be used at the end of the query just before
+-- offset if we have offset
+
+-- Exercise Select first 10 students whose first_names start with 'ke' (case insensitive)
+SELECT id
+, first_name, age
+FROM students
+WHERE first_name ILIKE 'ke%'
+LIMIT 10;
+
+SELECT id, first_name, age
+FROM students
+WHERE first_name
+ILIKE 'ke%'
+ORDER BY id DESC;
+
+-- OFFSET
+select id, first_name, last_name, age
+FROM students
+WHERE age > 30
+ORDER BY first_name
+LIMIT 10
+OFFSET
+20;
+
+-- The above query skips first 20 rows that we got back and starts after those 20 rows
+
+-- OFFSET combined with LIMIT can be used to implement pagination
