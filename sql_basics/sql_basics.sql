@@ -85,7 +85,7 @@ VALUES
     ('John', 'Lahm', 'john@codecore.ca', '778.889.0011');
 */
 
--- Readign data
+-- Reading data
 -- This will get all rows from students table
 SELECT *
 FROM students;
