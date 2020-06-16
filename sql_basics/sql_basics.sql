@@ -276,6 +276,6 @@ UPDATE students
     RETURNING *;
 
 -- DELETE A ROW (RECORD)
-DELETE FROM students
+   DELETE FROM students
     WHERE id = 505
     RETURNING *;
