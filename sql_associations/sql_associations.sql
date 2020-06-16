@@ -119,10 +119,49 @@ ORDER BY courses.id;
 -- Show the number of enrolled students and course title.
 -- Order by the number of enrolled students.
 
-SELECT * FROM
-(SELECT courses.title, COUNT(*) AS student_count
-FROM courses INNER JOIN enrolments ON courses.id = enrolments.course_id
-GROUP BY courses.id
-ORDER BY student_count DESC
+SELECT *
+FROM
+    (SELECT courses.title, COUNT(*) AS student_count
+    FROM courses INNER JOIN enrolments ON courses.id = enrolments.course_id
+    GROUP BY courses.id
+    ORDER BY student_count DESC
 ) AS student_count
 WHERE student_count >= 5;
+
+-- IN operator
+
+-- Below query returns students with IDs matching (1, 2, 3, 4, 1000)
+SELECT id, first_name, last_name
+FROM students
+WHERE id IN (1, 2, 3, 4, 1000);
+
+-- Exercises:
+-- Count all students for each course
+
+SELECT courses.title, COUNT(*) AS student_count
+FROM courses INNER JOIN enrolments ON courses.id = enrolments.course_id
+GROUP BY courses.id
+ORDER BY student_count DESC;
+
+-- Count all courses for each student.
+
+SELECT students.first_name, COUNT(*) AS no_of_courses_enrolled
+FROM students INNER JOIN enrolments ON students.id = enrolments.student_id
+GROUP BY students.id
+ORDER BY no_of_courses_enrolled DESC;
+
+-- Implement the following query:
+
+-- Show only courses with an average score lower than 60.
+
+-- Calculate the average score of all courses
+-- Display the course title, course id, average score and enrolment count.
+
+SELECT * FROM (
+    SELECT courses.id, courses.title, ROUND(AVG(enrolments.score), 2) AS score_average, COUNT(*) AS student_count
+    FROM courses 
+    INNER JOIN enrolments ON courses.id = enrolments.course_id
+    GROUP BY courses.id
+    ) AS courses_with_stats
+WHERE score_average < 60
+ORDER BY score_average DESC;
