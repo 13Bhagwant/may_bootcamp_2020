@@ -13,4 +13,75 @@
 
 -- Demo: Find the title of all projects owned by the student with id 2
 
-SELECT student_id, title FROM projects WHERE student_id = 2;
+SELECT student_id, title
+FROM projects
+WHERE student_id = 2;
+
+-- 2. One to One
+
+-- Implementing one to one association is the same as implementing One to Many. The only difference is that there should be 
+-- only one record reference a specific record which can be enforced with code or a constraint
+
+-- 3. Many to Many
+
+-- The most common way to implement many to many association is to have a third table, called the join table,
+-- to associate the records together. So if you have a courses table that stores information about courses, 
+-- by nature the courses have many students enrolled in
+
+-- Demo: Get all student IDs and scores for the course with an id of 1
+
+SELECT course_id, student_id, score
+FROM enrolments
+WHERE course_id = 1;
+
+-- J O I N S
+-- In many scenarios, especially when we have associations, we would like to execute queries that fetch data from
+-- multiples tables, for that we have SQL joins to merge data from multiple tables together
+
+-- Example: if you want to find the data that is associated between two tables you can use 'JOINS'. For example
+-- if you want to find all students and their projects you can write the following query using INNER JOIN 
+
+SELECT *
+FROM students INNER JOIN projects ON students.id = projects.student_id;
+
+-- CROSS JOIN 
+-- Cross join the students table with projects table
+SELECT *
+FROM students CROSS JOIN projects;
+
+
+-- INNER JOIN 
+-- Exercise: Get all students with their associated projects in the same query.
+-- Order by the student's first_name.
+
+SELECT students.id AS student_id,
+    first_name,
+    title AS project_title,
+    student_id AS student_id_in_projects
+FROM students
+    INNER JOIN projects ON students.id = projects.student_id
+ORDER BY students.first_name;
+
+
+-- Doing multiple joins in a query when we have many to many associations
+-- List all the students that are enrolled in the course whose titles contain 'co'
+
+-- so, the association between students and courses is MANY TO MANY through enrolments table
+
+SELECT students.id, students.first_name, courses.title AS course_title, score
+FROM students
+    INNER JOIN enrolments ON students.id = enrolments.student_id
+    INNER JOIN courses ON enrolments.course_id = courses.id
+WHERE courses.title
+ILIKE '%co%';
+
+-- Exercise:
+-- Find all courses that have at least one student whose name 
+-- begins with 'Re'. Show the course title, student names and their courses
+
+SELECT courses.title, students.first_name, enrolments.score
+FROM students
+    INNER JOIN enrolments ON students.id = enrolments.student_id
+    INNER JOIN courses ON enrolments.course_id = courses.id
+WHERE students.first_name
+ILIKE 'Jo%';
