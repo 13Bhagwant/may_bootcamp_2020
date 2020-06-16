@@ -85,3 +85,44 @@ FROM students
     INNER JOIN courses ON enrolments.course_id = courses.id
 WHERE students.first_name
 ILIKE 'Jo%';
+
+
+-- LEFT JOIN / RIGHT JOIN 
+-- List all student and their projects.
+-- students with no projects must be included as well.
+
+SELECT first_name, last_name, projects.title AS project_title
+FROM students
+    LEFT JOIN projects ON students.id = projects.student_id
+ORDER BY projects.title DESC;
+
+-- LEFT JOIN exclude the INTERSECTION
+-- Select only students that do not have projects
+SELECT first_name, last_name, projects.title AS project_title
+FROM students
+    LEFT JOIN projects ON students.id = projects.student_id
+WHERE projects.title IS NULL;
+
+
+-- JOINS + GROUP BY 
+-- List the average score of each course with higher averages on top displaying the course title and the score average
+
+SELECT courses.id, courses.title, ROUND(AVG(enrolments.score), 2) AS average_score
+FROM courses
+    INNER JOIN enrolments ON courses.id = enrolments.course_id
+GROUP BY courses.id
+ORDER BY courses.id;
+
+-- SUB - QUERY
+-- List all courses with at least 5 enrolled students.
+
+-- Show the number of enrolled students and course title.
+-- Order by the number of enrolled students.
+
+SELECT * FROM
+(SELECT courses.title, COUNT(*) AS student_count
+FROM courses INNER JOIN enrolments ON courses.id = enrolments.course_id
+GROUP BY courses.id
+ORDER BY student_count DESC
+) AS student_count
+WHERE student_count >= 5;
