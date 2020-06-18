@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node app.js",
+    "start": "node index.js",
     "db:create": "createdb --echo knex_lab",
     "db:drop": "dropdb --if-exists --echo knex_lab",
     "db:migrate": "knex migrate:latest",
