@@ -1,0 +1,25 @@
+{
+  "name": "js_postgres_client",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "bhagwant": "echo \"Hi Bhagwant\"",
+    "start": "node app.js",
+    "db:create": "createdb --echo knex_demo",
+    "db:drop": "dropdb --if-exists --echo knex_demo",
+    "db:migrate": "knex migrate:latest",
+    "db:rollback": "knex migrate:rollback",
+    "db:reset": "npm run db:drop && npm run db:create && npm run db:migrate"
+  },
+  "author": "Hano",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1",
+    "knex": "^0.21.1",
+    "pg": "^8.2.1"
+  },
+  "devDependencies": {
+    "faker": "^4.1.0"
+  }
+}
