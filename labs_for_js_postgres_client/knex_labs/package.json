@@ -1,0 +1,21 @@
+{
+  "name": "knex_labs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app.js",
+    "db:create": "createdb --echo knex_lab",
+    "db:drop": "dropdb --if-exists --echo knex_lab",
+    "db:migrate": "knex migrate:latest",
+    "db:rollback": "knex migrate:rollback",
+    "db:reset": "npm run db:drop && npm run db:create && npm run db:migrate"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "knex": "^0.21.1",
+    "pg": "^8.2.1"
+  }
+}
