@@ -9,6 +9,7 @@
   "author": "Bhagwant",
   "license": "ISC",
   "dependencies": {
+    "express": "^4.17.1",
     "knex": "^0.21.1",
     "pg": "^8.2.1"
   }
