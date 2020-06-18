@@ -4,10 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "hindreen": "echo \"Hi Hindreen\"",
+    "start": "node app.js",
+    "db:create": "createdb --echo knex_demo",
+    "db:drop": "dropdb --if-exists --echo knex_demo",
+    "db:migrate": "knex migrate:latest",
+    "db:rollback": "knex migrate:rollback",
+    "db:reset": "npm run db:drop && npm run db:create && npm run db:migrate"
   },
-  "author": "Bhagwant",
-  "license": "ISC",
+  "author": "Hano",
+  "license": "MIT",
   "dependencies": {
     "express": "^4.17.1",
     "knex": "^0.21.1",
