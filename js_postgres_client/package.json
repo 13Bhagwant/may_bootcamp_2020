@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "hindreen": "echo \"Hi Hindreen\"",
+    "bhagwant": "echo \"Hi Bhagwant\"",
     "start": "node app.js",
     "db:create": "createdb --echo knex_demo",
     "db:drop": "dropdb --if-exists --echo knex_demo",
@@ -18,5 +18,8 @@
     "express": "^4.17.1",
     "knex": "^0.21.1",
     "pg": "^8.2.1"
+  },
+  "devDependencies": {
+    "faker": "^4.1.0"
   }
 }
