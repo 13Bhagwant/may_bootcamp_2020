@@ -21,7 +21,6 @@ const server = net.createServer((socket) => {
   // as receiving data
   socket.on("data", (data) => {
     console.log("Server got: ", data.toString());
-
     socket.write(`Hello, ${data.toString()}`);
   });
 
@@ -30,8 +29,8 @@ const server = net.createServer((socket) => {
   });
 });
 
-const PORT = 5000;
-const ADDRESS = "127.0.0.1";
+const PORT = 5000; 
+const ADDRESS = "127.0.0.1"; // localhost
 
 server.listen(PORT, ADDRESS, () => {
   console.log(`Server is listenning at ${ADDRESS}:${PORT}`);
