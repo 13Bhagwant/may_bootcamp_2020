@@ -2,8 +2,10 @@ const express = require("express");
 // Requiring the 'express' package
 // returns a function that creates and instance
 // of the express application
+const logger = require("morgan");
 const app = express();
 
+app.set("view engine", "ejs");
 // URL (Uniform Resource Locator)
 // URL http://localhost:3000/hello_world
 // scheme | address | Port | path
@@ -19,10 +21,30 @@ const app = express();
 // The "path" identifies a specific web page (a resource)
 // on a server
 
+// MIDDLEWARE
+// LOGGER
+// When using the 'morgan' middleware, call it with
+// a string that describes the formatting of the logs.
+// Find out more here:
+// https://github.com/expressjs/morgan
+
 // ROUTES
 // a route is a function that creates a response
 // for a specific combination of HTTP VERB (METHOD) and
 // URL PATH
+
+app.get("/", (request, response) => {
+  // "response.render(<ejs-file-path>)"
+  //  render a template located in "views/" + <ejs-file-path>,
+  // When writing the file path, you can omit the extension.
+
+  // In the call below, the file at "./views/welcome.ejs" is
+  // render as HTML and is sent as the body of the HTTP response
+  // by our Express server. Just like "response.send(<data>)",
+  // response.render(<file-path>) terminates response by sending to
+  // the client
+  response.render("welcome");
+});
 
 // The following method "get" is named after the
 // HTTP VERB. There is a similar method for each
