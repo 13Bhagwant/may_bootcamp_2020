@@ -46,6 +46,42 @@ app.get("/", (request, response) => {
   response.render("welcome");
 });
 
+app.get("/contact_us", (request, response) => {
+  // console.log("URL query: ", request.query);
+  response.render("contactUs");
+});
+
+// http://localhost:3000/thank_you?fullName=hano&favouriteColour=grey&message=javascript
+// Scheme | host | PORT | path | query (search)
+
+// The 'query' in the URL is a way to encode data as key-value
+// pairs in the URL itself. It used by forms to store data from
+// its inputs for example. this called URL encoding
+
+// The encoding format is as follows:
+// ?key_1=value_1&key_2=value_2&key_3=value_3
+// Express takes a query from a URL and converts it into
+// an object as follows:
+// { key_1: 'value_1', key_2: 'value_2', key_3: 'value_3' }
+
+app.get("/thank_you", (request, response) => {
+  // request.query is a property that holds an object
+  // representation of the URL query
+
+  // console.log("request.query: ", request.query);
+
+  //   const fullName = request.query.fullName;
+  //   const favouriteColour = request.query.favouriteColour;
+  //   const message = request.query.message;
+  // below line is equivalent to the above three lines
+  const { fullName, favouriteColour, message } = request.query;
+  response.render("thankYou", {
+    fullName: fullName,
+    favouriteColour: favouriteColour,
+    message: message,
+  });
+});
+
 // The following method "get" is named after the
 // HTTP VERB. There is a similar method for each
 // verb (e.g. GET, POST, PUT, PATCH, DELETE, OPTION, etc)
