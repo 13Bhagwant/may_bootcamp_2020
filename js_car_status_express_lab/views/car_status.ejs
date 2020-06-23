@@ -1,0 +1,20 @@
+<%- include('./partials/header') %>
+
+  <h1>Car Status</h1>
+
+  <% if (age) { %>
+    <h3>Your car is <%= age %></h3>
+  <% } %>
+  
+  <form action="/car_status">
+    <label for="year">Year of your Car Model</label>
+    <%# <input type="number" min="1950" max="2025" name="year"/> %>
+    <select name="year" id="year">
+      <% for (let i = 2025; i >= 1950; i--) { %>
+        <option value="<%= i %>"><%= i %></option>
+      <% } %>
+    </select>
+    <input type="submit" value="Submit"/>
+  </form>
+
+<%- include('./partials/footer') %>
