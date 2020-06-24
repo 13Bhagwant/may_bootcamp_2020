@@ -1,0 +1,27 @@
+<%- include("./partials/header.ejs") %> 
+        <h1>Contact Us</h1>
+
+        <!--
+            When a form submitted, a HTTP request is made by the browser
+            to the URL in the "action" attribute with the data from
+            input fields of the form. If an "action" attribute is not given,
+            the default URL is the curren URL. The default HTTP VERB is GET
+            and can be changed to POST useing the "method" attribute
+        -->
+        <form action="/thank_you">
+            <div>
+                <label for="fullName"> What is your name?</label><br />
+                <input type="text" name="fullName" />
+            </div>
+            <div>
+                <label for="favouriteColour"> What is your favourite colour?</label><br />
+                <input type="text" name="favouriteColour" />
+            </div>
+            <div>
+                <label for="message"> What is in your mind?</label><br />
+                <textarea rows="5" cols="60" name="message"></textarea>
+            </div>
+
+            <input type="submit" value="Send" />
+        </form>
+<%- include("./partials/footer.ejs") %> 
