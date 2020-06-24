@@ -57,6 +57,17 @@ app.get('/', (req, res) => {
   res.render('home')
 })
 
+app.get('/directory_lister', (request, response) => {
+	fs.readdir('.', (err, files) => {
+		if (err) {
+			response.send('An Error Occurred');
+		}
+		response.render('directory_lister', {
+			files: files,
+		});
+	});
+});
+
 const PORT = process.env.PORT || 3000 
 app.listen(PORT, () => {
   console.log(`Server is listening at http://localhost:${PORT}`)
