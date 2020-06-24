@@ -4,6 +4,7 @@ const express = require("express");
 // of the express application
 const logger = require("morgan");
 const path = require("path");
+const cookieParser = require("cookie-parser");
 const app = express();
 
 app.set("view engine", "ejs");
@@ -30,15 +31,37 @@ app.set("view engine", "ejs");
 // https://github.com/expressjs/morgan
 app.use(logger("dev"));
 
+// Body Parser /URLEncoded
+// This middleware will decode the data that was submitted
+// from the form using the "POST" HTTP verb (method)
+
+// When the 'extended' option is set to 'true', it will allow
+// form data to take the shape of arrays or objects.
+// But if 'extended' set to 'false', you can only get a string
+// from form data.
+app.use(express.urlencoded({ extended: true }));
+// It will modify the 'request' object given to routes
+// by adding a property to it named 'body'
+// 'request.body' will be an object containing teh data from our form
+
+// Cookie Parser
+app.use(cookieParser());
+// What cookieParser does as a middleware is modify the request and response
+// objects that are given to all of our routes:
+//  - It adds a property to the request object named 'cookies' which is an
+//    object itself
+//  - it adds a method to response object called cookie() which we will use
+//    to set cookies
+
 // STATIC ASSETS
 // Use path.join to combine string arguments into directory paths
 // for example:
-path.join('/', 'home', 'users', 'arsham'); // '/home/users/arsham'
+// path.join('/', 'home', 'users', 'hindreen'); // '/home/users/hindreen'
 
 // "__dirname" is a global variable available anywhere in any application
 // that is run by Node that returns the full directory path beginning from
 // root (i.e. '/') to the location of the file where "__dirname" is used.
-console.log("__dirname: ", "public");
+// console.log("__dirname: ", __dirname);
 
 // The static assets middleware will take all the files and directories
 // at a specified path and serve them publically with their own URL.
@@ -52,7 +75,32 @@ app.use(express.static(path.join(__dirname, "public")));
 // for a specific combination of HTTP VERB (METHOD) and
 // URL PATH
 
+// Custom middleware
+app.use((request, response, next) => {
+  console.log("cookies", request.cookies);
+  // Read cookies from the request using 'request.cookies'
+  // They are represented by an object whose keys are cookie-names
+  // and the values associated with those properties are the corresponding
+  // cookie values.
+  const username = request.cookies.username;
+
+  // Set properties on 'response.locals' to create variables
+  // that are global and available to all of the rendered templates
+  response.locals.loggedInUsername = username || "";
+
+  // The third argument to all middlewares is a callback function 
+  // named 'next'. When called, it tells Express that this middleware is
+  // complete and moves on to the next middleware in line, or if it is the
+  // last middleware, begins looking for the route that matches the request
+  next();
+});
+
+const COOKIE_MAX_AGE = 1000 * 60 * 60 * 24 * 7; // A week in milliseconds
 app.get("/", (request, response) => {
+  // This is an example of setting a cookie
+  response.cookie("myCookie", "cookie value here", {
+    maxAge: COOKIE_MAX_AGE,
+  });
   // "response.render(<ejs-file-path>)"
   //  render a template located in "views/" + <ejs-file-path>,
   // When writing the file path, you can omit the extension.
@@ -132,6 +180,28 @@ app.get("/hello_world", (request, response) => {
   // and adds it to the response body, then terminates
   // the response sending it to the client
   response.send("Hello, World!");
+});
+
+app.post("/sign_in", (request, response) => {
+  const params = request.body; // { username: 'hindreen' }
+  // console.log("request.body: ", params);
+  // 'request.body' is only available if the 'urlencoded'
+  // middleware is being used and it will contain data from
+  // a submitted form as an object
+
+  // 'response.cookie(<cookie-name>, <cookie-value>, <options>)'
+  // The 'cookie' method is added to the 'reponse' object
+  // by the 'cookie-parser' middleware.
+  // We use this method to send cookies to the browser.
+  // - The first argument is a string indicates the name of the cookie
+  // - The second is the value of the cookie
+  // - (optional) the last argument are the options for that cookie
+  response.cookie("username", params.username, { maxAge: COOKIE_MAX_AGE });
+
+  // When the broswer receives a redirect response,
+  // it makes a follow up request to provided location.
+  // In this case, the browser is send to our welcome '/' route
+  response.redirect("/");
 });
 
 const PORT = 3000;
