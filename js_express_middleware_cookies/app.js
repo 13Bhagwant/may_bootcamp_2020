@@ -5,6 +5,7 @@ const express = require("express");
 const logger = require("morgan");
 const path = require("path");
 const cookieParser = require("cookie-parser");
+const { response } = require("express");
 const app = express();
 
 app.set("view engine", "ejs");
@@ -88,7 +89,7 @@ app.use((request, response, next) => {
   // that are global and available to all of the rendered templates
   response.locals.loggedInUsername = username || "";
 
-  // The third argument to all middlewares is a callback function 
+  // The third argument to all middlewares is a callback function
   // named 'next'. When called, it tells Express that this middleware is
   // complete and moves on to the next middleware in line, or if it is the
   // last middleware, begins looking for the route that matches the request
@@ -201,6 +202,14 @@ app.post("/sign_in", (request, response) => {
   // When the broswer receives a redirect response,
   // it makes a follow up request to provided location.
   // In this case, the browser is send to our welcome '/' route
+  response.redirect("/");
+});
+
+app.post("/sign_out", (request, response) => {
+  // We use 'response.clearCookie(<cookie-name>)' to remove the specific cookie
+  // with that cookie-name
+  // In this case, we are removing the 'username' cookie from the browser
+  response.clearCookie("username");
   response.redirect("/");
 });
 

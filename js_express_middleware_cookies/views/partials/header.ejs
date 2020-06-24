@@ -29,17 +29,24 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/hello_world">Hello World</a>
                 </li>
+                <% if (loggedInUsername) { %>
                 <li class="nav-item">
-                    <% if (loggedInUsername) { %>
-                        <a class="nav-link" style="color: green;" href="#"><%= loggedInUsername %> </a>
-                    <% } else { %> 
-                        <form action="/sign_in" method="POST" class="form-inline">
-                            <input type="text" name="username" placeholder="Enter your username..." class="form-control mr-2" />
-                            <button class="btn btn-outline-dark" type="submit">Sign In</button>
-                        </form>
-                    <% } %> 
-
+                    <a class="nav-link" style="color: green;" href="#"><%= loggedInUsername %> </a>
                 </li>
+                <li class="nav-item">
+                    <form action="sign_out" method="POST" class="form-inline">
+                        <button class="btn btn-outline-dark">Sign Out</button>
+                    </form>
+                </li>
+                <% } else { %> 
+                <li class="nav-item">
+                    <form action="/sign_in" method="POST" class="form-inline">
+                        <input type="text" name="username" placeholder="Enter your username..." class="form-control mr-2" />
+                        <button class="btn btn-outline-dark" type="submit">Sign In</button>
+                    </form>
+                </li>
+                <% } %> 
+
                 </ul>
             </div>
         </nav>
