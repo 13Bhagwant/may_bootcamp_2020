@@ -33,12 +33,12 @@ app.use(logger("dev"));
 // STATIC ASSETS
 // Use path.join to combine string arguments into directory paths
 // for example:
-// path.join('/', 'home', 'users', 'hindreen'); // '/home/users/hindreen'
+path.join('/', 'home', 'users', 'arsham'); // '/home/users/arsham'
 
 // "__dirname" is a global variable available anywhere in any application
 // that is run by Node that returns the full directory path beginning from
 // root (i.e. '/') to the location of the file where "__dirname" is used.
-// console.log("__dirname: ", __dirname);
+console.log("__dirname: ", "public");
 
 // The static assets middleware will take all the files and directories
 // at a specified path and serve them publically with their own URL.
