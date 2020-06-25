@@ -42,7 +42,7 @@ router.get("/", (request, response) => {
     .limit(10)
     .then((posts) => {
       // response.send(posts);
-      response.render("posts/index", { posts: posts });
+      response.render("posts/index", { posts });
     });
 });
 
@@ -68,7 +68,7 @@ router.get("/:id", (request, response) => {
       console.log(post);
       if (post) {
         // response.send(post);
-        response.render("posts/show", { post: post });
+        response.render("posts/show", { post });
       } else {
         response.redirect("/posts");
       }
@@ -77,6 +77,7 @@ router.get("/:id", (request, response) => {
 
 // Name: posts#destroy, method: DELETE, path: /posts/:id
 router.delete("/:id", (request, response) => {
+  console.log("request: ", request);
   knex("posts")
     .where("id", request.params.id)
     .del()
@@ -85,4 +86,33 @@ router.delete("/:id", (request, response) => {
     });
 });
 
+// Name: posts#edit, method: GET, path: /posts/:id/edit
+router.get("/:id/edit", (request, response) => {
+  knex("posts")
+    .where("id", request.params.id)
+    .first()
+    .then((post) => {
+      //   response.send(post);
+      response.render("posts/edit", { post });
+    });
+});
+
+// Name: posts#update, method: PATCH, path: /posts/:id
+router.patch("/:id", (request, response) => {
+  const { id } = request.params;
+  const { title, content, imageUrl } = request.body;
+  
+  const updatedPost = {
+    title,
+    content,
+    imageUrl,
+  };
+
+  knex("posts")
+    .where("id", id)
+    .update(updatedPost)
+    .then(() => {
+      response.redirect(`/posts/${id}`);
+    });
+});
 module.exports = router;

@@ -99,6 +99,8 @@ app.use((request, response, next) => {
 
 // METHOD OVERRIDE
 app.use(
+  // Without this, we won't be able to send DELETE, PUT, or PATCH requests
+  // from the browser!
   methodOverride((request, response) => {
     if (request.body && request.body._method) {
       const method = request.body._method;
