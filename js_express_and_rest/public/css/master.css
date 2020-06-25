@@ -1,4 +1,9 @@
-.black {
-    border: 10px solid black;
-    border-radius: 10px;
-  }
+.cute-kitten {
+  border: 10px solid black;
+  border-radius: 10px;
+}
+
+.small-image {
+  width: 800px;
+  height: 400px;
+}

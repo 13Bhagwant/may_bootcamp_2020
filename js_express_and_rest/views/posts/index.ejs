@@ -1,0 +1,14 @@
+<%- include("../partials/header.ejs") %> 
+    <div class="container">
+        <h1>Posts</h1>
+        <% for(let post of posts) { %> 
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5 class="card-title"><%= post.title %> </h5>
+                <img src="<%= post.imageUrl %>" class="small-image" alt="">
+                <p class="card-text"><%= post.content %> </p>
+            </div>
+        </div>
+        <% } %> 
+    </div>
+<%- include("../partials/footer.ejs") %> 

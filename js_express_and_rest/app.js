@@ -106,7 +106,7 @@ app.use("/", baseRouter);
 const postsRouter = require("./routes/postsRouter");
 app.use("/posts", postsRouter);
 
-const PORT = 4001;
+const PORT = 4000;
 const ADDRESS = "localhost"; // 127.0.0.1
 
 app.listen(PORT, ADDRESS, () => {
