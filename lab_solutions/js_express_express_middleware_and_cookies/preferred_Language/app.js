@@ -1,60 +1,73 @@
-const express = require('express');
-const logger = require('morgan');
-const cookieParser = require('cookie-parser');
+const express = require('express')
+const logger = require('morgan')
+const cookieParser = require('cookie-parser')
 
-const app = express();
-app.use(logger('dev'));
-app.set('view engine', 'ejs');
+const app = express()
 
-app.use(express.urlencoded({ extended: false }));
+app.set('view engine', 'ejs')
 
-app.use(cookieParser());
+app.use(logger('dev'))
 
-app.get('/', function(request, response) {
-	const language = request.cookies.language;
-	const name = request.cookies.name;
-	const greetings = {
-		english: 'Hello',
-		french: 'Bonjour',
-		spanish: 'Hola'
-	};
-	let greeting;
-	if (name && language) {
-		greeting = `${greetings[language]}, ${name}`;
-	}
-	response.render('home', { greeting });
-});
+app.use(express.urlencoded({ extended: true }))
 
-app.get('/preferred_language', function(request, response) {
-	const selected = request.cookies.language;
-	const name = request.cookies.name;
-	const preferred_languages = {
-		english: 'English',
-		french: 'French',
-		spanish: 'Spanish'
-	};
-	response.render('preferred_language', {
-		preferred_languages,
-		name,
-		selected
-	});
-});
+app.use(cookieParser())
 
-const COOKIE_MAX_AGE = 1000 * 60 * 60 * 24 * 7;
-app.post('/preferred_language', function(request, response) {
-	const name = request.body.name;
-	const language = request.body.language;
-	response.cookie('name', name, {
-		maxAge: COOKIE_MAX_AGE
-	});
-	response.cookie('language', language, {
-		maxAge: COOKIE_MAX_AGE
-	});
-	response.redirect('/');
-});
+app.get('/', (req, res) => {
+  const { name, language } = req.cookies
+  console.log(req.cookies)
+  const greetings = {
+    english: 'Hello',
+    french: 'Bonjour',
+    spanish: 'Hola'
+  }
+  let greeting = 'Welcome to My Awesome Website'
+  if (name && language) {
+    greeting = `${greetings[language]}, ${name}!`
+  }
 
-const PORT = 3000;
-const ADDRESS = "localhost"; 
-app.listen(PORT, ADDRESS, () => {
-  console.log(`Server listening on http://${ADDRESS}:${PORT}`);
-});
+  res.render('home', { greeting })
+})
+
+app.get('/preferred_language', (req, res) => {
+  const { name, language } = req.cookies
+  const preferredLanguages = ['english', 'french', 'spanish']
+
+  res.render('preferred_language', {
+    preferredLanguages,
+    name,
+    selected: language,
+  })
+})
+
+app.post('/preferred_language', (req, res) => {
+  const COOKIE_MAX_AGE = 1000 * 60 * 60 * 24 * 7
+  const { name, language } = req.body
+  res.cookie('name', name, { maxAge: COOKIE_MAX_AGE })
+  res.cookie('language', language, { maxAge: COOKIE_MAX_AGE })
+  res.redirect('/')
+})
+
+app.get('/todos/new', (req, res) => {
+  res.render('new_todo')
+})
+
+app.get('/todos', (req, res) => {
+  const { todos } = req.cookies
+  res.render('todos', { todos })
+})
+
+app.post('/todos', (req, res) => {
+  const { title, body } = req.body
+  const todos = req.cookies.todos || []
+
+  todos.push({ title, body })
+
+  res.cookie('todos', todos)
+  res.redirect('/todos')
+})
+
+const PORT = process.env.PORT || 3000
+const DOMAIN = 'localhost'
+app.listen(PORT, DOMAIN, () => {
+  console.log(`Listening at http://${DOMAIN}:${PORT}`)
+})

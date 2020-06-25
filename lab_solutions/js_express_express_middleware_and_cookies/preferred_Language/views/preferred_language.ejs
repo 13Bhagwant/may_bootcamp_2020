@@ -1,22 +1,24 @@
-<%- include('./partials/header') %>
-<h1>Select a Preferred Language</h1>
-<form method="POST" action="/preferred_language">
-    <div>
-        <label for="name">Name</label>
-        <input type="text" name="name" value="<%= name %>">
-    </div>
-    <div>
-        <label for="language">Preferred Language</label>
-        <select name="language" id="language">
-        <% for (let language in preferred_languages) { %>
-            <option value="<%= language %>" <% if (language === selected) { %> selected <% } %> >
-                <%= preferred_languages[language] %>
-            </option>
-        <% } %>
-        </select>
-    </div>
-    <div>
-        <input type="submit" value="Submit">
-    </div>
+<%- include("./partials/header") %>
+
+<h1>Select your Preferred Language</h1>
+<form action="/preferred_language" method="POST">
+  <div>
+    <label for="name">Name</label>
+    <input type="text" name="name" value="<%= name %>"/>
+  </div>
+  <div>
+    <label for="language">Preferred Language</label>
+    <select name="language" >
+      <option disabled selected>-- select a language --</option>
+      <% preferredLanguages.forEach(language => { %>
+        <option value="<%= language %>" <% if (language === selected) { %> selected <% } %> >
+          <%= language[0].toUpperCase() + language.slice(1) %>
+        </option>
+      <% }) %>
+    </select>
+  </div>
+  <input type="submit" value="Submit" />
 </form>
-<%- include('./partials/footer') %>
+
+<%- include("./partials/footer") %>
+  
