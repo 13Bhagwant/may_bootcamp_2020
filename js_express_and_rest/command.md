@@ -21,7 +21,7 @@ knex init # make sure that you have knex installed globally
 
 npm i -g knex # if that doesn't work due permissions run it with sudo
 
-sudo npm i -g knex
+sudo npm i -g knex # for linux
 
 # To create a database
 CREATEDB --echo <your-db-name>
