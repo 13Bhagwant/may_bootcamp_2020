@@ -13,6 +13,10 @@
                     <div><em>Seen <%= post.viewCount %> time(s)</em></div>
                     <div><em><%= new Date(post.createdAt).toLocaleString() %> </em></div>
                 </p>
+                <form method="POST" action="/posts/<%= post.id %>">
+                    <input type="hidden" name="_method" value="DELETE" />
+                    <input type="submit" class="btn btn-outline-danger" value="Delete" />
+                </form>
             </div>
         </div>
     </div>

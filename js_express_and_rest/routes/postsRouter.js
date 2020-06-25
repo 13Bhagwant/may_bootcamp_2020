@@ -75,4 +75,14 @@ router.get("/:id", (request, response) => {
     });
 });
 
+// Name: posts#destroy, method: DELETE, path: /posts/:id
+router.delete("/:id", (request, response) => {
+  knex("posts")
+    .where("id", request.params.id)
+    .del()
+    .then(() => {
+      response.redirect("/posts");
+    });
+});
+
 module.exports = router;

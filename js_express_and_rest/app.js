@@ -5,6 +5,7 @@ const express = require("express");
 const logger = require("morgan");
 const path = require("path");
 const cookieParser = require("cookie-parser");
+const methodOverride = require("method-override");
 const { response } = require("express");
 const app = express();
 
@@ -96,6 +97,20 @@ app.use((request, response, next) => {
   next();
 });
 
+// METHOD OVERRIDE
+app.use(
+  methodOverride((request, response) => {
+    if (request.body && request.body._method) {
+      const method = request.body._method;
+      // This modifies the request object
+      // it changes it from a POST request
+      // to whatever the value for _method
+      // was withing the form that was just submitted
+      return method;
+    }
+  })
+);
+
 const baseRouter = require("./routes/baseRouter");
 // The baseRouter defined within an export from 'routes/baseRouter.js'
 // is being 'hooked up' to our app in the line of code below
@@ -106,7 +121,7 @@ app.use("/", baseRouter);
 const postsRouter = require("./routes/postsRouter");
 app.use("/posts", postsRouter);
 
-const PORT = 4000;
+const PORT = 3000;
 const ADDRESS = "localhost"; // 127.0.0.1
 
 app.listen(PORT, ADDRESS, () => {
