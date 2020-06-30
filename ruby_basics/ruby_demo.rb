@@ -195,3 +195,14 @@ while number >= 1
     puts "Hello World"
     number -= 1
 end
+
+# Looping with times
+5.times { puts "codecore" }
+
+# loop
+x = 1
+loop do
+    puts x 
+    x += 1 
+    break if x == 10
+end
