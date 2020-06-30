@@ -206,3 +206,15 @@ loop do
     x += 1 
     break if x == 10
 end
+
+# for..loop
+
+num = gets.to_i 
+# 1..100 will cover the range inclusively meaning it
+# will include 100
+# 1...100 will not include 100.
+if num < 100 
+    for number in 1..num 
+        puts number 
+    end
+end
