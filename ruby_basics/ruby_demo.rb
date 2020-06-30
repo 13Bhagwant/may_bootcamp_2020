@@ -218,3 +218,10 @@ if num < 100
         puts number 
     end
 end
+
+# to check the class of a variable or datatype
+1.is_a? Integer # true
+1.is_a? Float # false
+1.is_a? String # false
+2.5.is_a? Float # true
+'hello'.is_a? String # true
