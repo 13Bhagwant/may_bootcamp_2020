@@ -173,4 +173,25 @@ puts b
 
 # while loop 
 
+x = 1 
+while x <= 100
+    puts x 
+    x += 1 # x++ won't work in ruby 
+end
 
+# Print numbers 50 to 1 using while loop
+count = 50 
+while count >= 1
+    print "#{count}"
+    count -= 1
+end
+
+Write a piece of code that asks a user for a number
+and then prints "Hello World" the number of times 
+entered using a while loop
+
+number = gets.to_i
+while number >= 1 
+    puts "Hello World"
+    number -= 1
+end
