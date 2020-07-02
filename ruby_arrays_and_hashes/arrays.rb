@@ -115,6 +115,78 @@ words = s.split ' '
 words = ["Hello", "CodeCore", "Students"]
 swap_words = words[2], words[1], words[0]
 
-p swap_words
+# p swap_words
 
+# Iterating through arrays 
+h = [3, 7, 13, 19, 31]
 
+h.each do |current_element|
+    square_num = current_element * current_element
+    # p square_num
+end
+
+# pragmatic way of passing a block, use it only when you have 
+# a single line block
+h.each { |current_element|
+    square_num = current_element * current_element
+    # p square_num
+}
+
+fav_animals = ['wolf', 'penguins', 'cat', 'dog', 'sloth']
+
+# using for in to loop through the above array
+for animal in fav_animals
+    # puts animal
+end
+
+# Common method for looping over an array is the .each
+fav_animals.each do |animal, index|
+    # puts index # this will not return index, if we want to get indexes
+    #  back, we need to use each_with_index method 
+    # puts animal 
+end
+
+# if you needed to get back the index with .each you can use 
+# .each_with_index
+fav_animals.each_with_index do |animal, index| 
+    # puts "[#{index}] #{animal}"
+end
+
+# .map
+fav_animals.map.with_index do |animal, index|
+    # puts index
+    # puts animal 
+end
+
+# Exercise: Printing a multi-dimansional array
+i = [[1, 7, 3], [4, 4, 6], [7, 2, 9]]
+
+i.each do |inner_array|
+    inner_array.each do |element|
+        # p element * element
+    end
+end
+
+# We can also flatten the above multi-dimensional array
+# then loop through it
+i.flatten.each do |element|
+    # p element * element
+end
+
+# Write a scritp that asks for names and stores them in an array.
+# When the user enters "exit", stop askingfor names then 
+# print all names in the array capitalized. 
+# Also try printing the names reveresed as well.
+
+names = []
+
+while name = gets.chomp 
+    p name 
+    if name == 'exit'
+        break 
+    else 
+        names << name.capitalize
+    end 
+end 
+
+p names 
