@@ -279,3 +279,42 @@ p add(second: 20) # => 20
 
 # add(first: 10, second: 20, third: 30) 
 # unknown keyword: third (ArgumentError)
+
+# Other ruby tidbits
+# ternary operator
+
+x = 4 
+x > 10 ? "Big number" : "Little number"
+
+# equivalent to:
+if x > 10 
+    "Big number"
+else 
+    "Little number"
+end
+
+# or equals 
+y = 11 
+y ||= 5
+z ||= 5
+
+y # => 11
+z # => 5
+
+# case statement
+
+puts "Hi, please enter a language: "
+language = gets.chomp 
+
+case language 
+when "English"
+    puts "Hello"
+when "French"
+    puts "Bonjour"
+when "Spanish"
+    puts "Hola"
+when "Italian"
+    puts "Ciao"
+else  
+    puts "I don't know how to say hello to you in #{language}, sorry"
+end
