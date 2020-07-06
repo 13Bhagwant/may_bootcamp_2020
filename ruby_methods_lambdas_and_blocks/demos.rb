@@ -1,5 +1,5 @@
 # Ruby Methods Lambdas and Blocks
-
+# Changed by Hindreen
 # Define a method with the 'def' keyword
 # Methods that return a boolean generally their name end with
 # '?' (convention, not enforced by the language)
