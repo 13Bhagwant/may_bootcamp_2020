@@ -112,3 +112,170 @@ def find_min (*nums)
 end
 
 find_min(20, 40, 12, 17, 1, 25)
+
+# Blocks
+
+# All method can take a block as an argument and
+# only one block at a time
+
+def my_method2 
+    puts "We are in the method"
+    yield 
+end
+
+# my_method2 { puts "The block is called" }
+
+def my_method3 x 
+    puts "Before Block"
+    # To execute a block that's been passed to a 
+    # method, use the 'yield' keyword. This is 
+    # like calling the block. 
+    # yield will return the last expression from the 
+    # block
+    yield_return = yield 
+    puts "Yielded block returned: #{yield_return}"
+    puts "After Block"
+end
+
+# my_method3(5) { "The Block" }
+
+# Yield can be used multiple times
+
+def print_twice 
+    yield 
+    yield 
+end 
+
+# print_twice { puts "Hello" }
+
+# if you try to yield without a block you will
+# get a no block given error 
+
+# print_twice # LocalJumpError: no block given (yield)
+
+# You can check if a block has been passed with
+# the block_given? method 
+
+def do_something_with_block 
+    return "no block given" unless block_given? 
+    yield
+end
+
+do_something_with_block
+# "no block given"
+
+do_something_with_block { "Hello World" }
+# "Hello World"
+
+
+# Exercise: Implementing each 
+def each (arr) 
+    # arr = [1, 2, 3, 4]
+    # val will be 1 in the first iteration
+    # val will be 2 in the second iteration and so on... 
+    for val in arr 
+        # we are calling block ({ |x| x * 15 })
+        result = yield(val) 
+        puts "result: #{result}"
+    end
+end
+
+# each([1, 2, 3, 4]) { |x| x * 15 }
+
+# Exercise: Implementing map 
+def map(arr)
+    output = []
+    for val in arr 
+        output << yield(val) 
+    end 
+    puts "output: #{output}"
+    output 
+end
+
+# map([1, 2, 3, 4]) { |x| x * 15 }
+# [15, 30, 45, 60]
+
+# Creating Lambdas 
+
+# Lambda is a ruby name for an anonymous method 
+# Write it like so: 
+
+add_seven = lambda { |n| n + 7 }
+power_2 = -> (n) { n ** 2}
+
+# calling lambdas 
+# p add_seven.call(10)
+# p power_2.call(7)
+
+# If you pass down a wrong number of arguments to a 
+# lambda, it raise an exception, just like a regular method
+# wrong number of arguments
+
+# Using lambdas as blocks
+# You can pass a lambda as a method argument
+# prefixed with & to call it as a block (i.e. using yield)
+# This doesn't work with regular methods only procs and lambdas
+
+# map([1, 2, 3, 4, 5], &power_2)
+# map([1, 2, 3, 4, 5], &add_seven)
+
+# Procs
+# There is no dedicated lambda class. A lambda is
+# just a special kind of proc
+
+my_proc = Proc.new { |x| puts x}
+
+# Differences between procs and lambdas
+# a = Proc.new { |x, y| puts "I don't care about the arguments" }
+# a.call(4)
+# as you se we are passing down one argument to our proc above
+# but, the procs doesn't care about arguments wether you pass down 
+# the same number of arguments required or not an that's one of the 
+# differences between procs and lambdas
+
+# Procs and lambdas also handle return differently.
+# A lambda will return normally, like a regular method
+# Procs on the other hand, return from the method enclosing the proc.
+
+def test_procs_and_lamdas 
+    yield 
+    puts "Hello"
+end
+
+l = lambda do 
+    puts "Lambda"
+    return 
+end 
+
+p = Proc.new do 
+    puts "Proc"
+    return 
+end 
+
+# test_procs_and_lamdas(&l)
+# Lambda
+# Hello
+
+# test_procs_and_lamdas(&p)
+# Proc
+
+# Named Arguments 
+# In ruby methods can take named arguments
+# they must be given a default value
+
+def add(first: 0, second: 1) 
+    # The argument first has a default value of 0 
+    # second has a default value of 1
+    first + second 
+end
+
+# p add() # => 1
+# puts add(0, 3) # => ArgumentError wrong number of arguments
+
+# To use named arguments, you must refer to them by name 
+p add(first: 10) # => 11
+p add(first: 10, second: 20) # => 30
+p add(second: 20) # => 20
+
+# add(first: 10, second: 20, third: 30) 
+# unknown keyword: third (ArgumentError)
