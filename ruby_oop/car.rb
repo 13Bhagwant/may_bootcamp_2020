@@ -1,4 +1,11 @@
+
+# Car exercises
 class Car 
+
+    attr_reader :type # createes the @type instance variable and the getter 
+    attr_writer :type # creates the @type instance variable (if doesn't exist) and the setter
+
+    attr_accessor :model, :capacity
 
     def initialize(model, type, capacity=3) 
         @model = model 
