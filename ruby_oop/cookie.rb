@@ -24,8 +24,8 @@ class Cookie
         @butter = butter 
     end
 
-    def bake # Instance methods of Cookie class
-        "Bake a cookie"
+    def details 
+        "sugar: #{@sugar} / butter: #{butter}"
     end
 
     # The instance method 'sugar' is an attribute reader,
@@ -78,6 +78,7 @@ class Cookie
 
 
     def eat 
+        food = 'just a simple chicken salad'
         "Nom. Nom. Nom!"
     end
 
@@ -102,24 +103,24 @@ class Cookie
     # classes.
 end
 
-c = Cookie.new(10, 15)
-# p c.bake # private
-# p c.eat # error because eat is a private method
-p Cookie.info 
+# c = Cookie.new(10, 15)
+# # p c.bake # private
+# # p c.eat # error because eat is a private method
+# p Cookie.info 
 
-p c.sugar # 10
-c.sugar = 20 # setting attribute sugar with sugar attribute write
-p c.sugar # 20
+# p c.sugar # 10
+# c.sugar = 20 # setting attribute sugar with sugar attribute write
+# p c.sugar # 20
 
-p c.butter # 15 
-c.butter = 35 # setting attribute butter with attr_accessor for butter
-p c.butter # 35
+# p c.butter # 15 
+# c.butter = 35 # setting attribute butter with attr_accessor for butter
+# p c.butter # 35
 
-# To get  the class of an object use the ".class"
-# this method can be used with any object.
-p c.class # returns the Cookie class
-p Cookie.class # returns the Class class 
+# # To get  the class of an object use the ".class"
+# # this method can be used with any object.
+# p c.class # returns the Cookie class
+# p Cookie.class # returns the Class class 
 
-# In pry, use the command 'ls' and an object to
-# list all usable class and instance methods. 
-# example: 'ls Cookie'
+# # In pry, use the command 'ls' and an object to
+# # list all usable class and instance methods. 
+# # example: 'ls Cookie'
