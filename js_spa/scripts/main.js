@@ -51,16 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // load all the questions
   Question.index()
     .then(questions => {
-      const questionsContainer = document.querySelector('.question-list');
-      const questionsList = questions.map(q => {
-        return `
-          <li>
-            <span>${q.id}</span>
-            ${q.title}
-          </li>
-        `
-      }).join('');
-      questionsContainer.innerHTML = questionsList;
+      renderQuestionsIndex(questions);
     })
 
 
@@ -75,7 +66,19 @@ document.addEventListener('DOMContentLoaded', () => {
       body: formData.get('body')
     }
     Question.create(newQuestionParams)
-      .then(question => console.log(question));
+      .then(question => {
+          console.log(question)
+        form.querySelectorAll('input').forEach(n => {
+          if (n.getAttribute('type') === 'submit') {
+            return;
+          }
+          n.value = '';
+        })
+        return Question.index()
+      })
+      .then(questions => {
+        renderQuestionsIndex(questions);
+      })
   })
 
   // navigation (navbar)
@@ -97,4 +100,17 @@ function navigateTo(id) {
     node.classList.remove('active')
   })
   document.querySelector(`.page#${id}`).classList.add('active');
+}
+
+function renderQuestionsIndex(questions) {
+  const questionsContainer = document.querySelector('.question-list');
+  const questionsList = questions.map(q => {
+    return `
+      <li>
+        <span>${q.id}</span>
+        ${q.title}
+      </li>
+    `
+  }).join('');
+  questionsContainer.innerHTML = questionsList;
 }
