@@ -20,6 +20,10 @@ const Question = {
     }).then(res => {
       return res.json();
     })
+  },
+  show(id) {
+    return fetch(`${BASE_URL}/questions/${id}`)
+      .then(res => res.json());
   }
 }
 
@@ -67,7 +71,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     Question.create(newQuestionParams)
       .then(question => {
-          console.log(question)
         form.querySelectorAll('input').forEach(n => {
           if (n.getAttribute('type') === 'submit') {
             return;
@@ -90,6 +93,20 @@ document.addEventListener('DOMContentLoaded', () => {
     // const page = target.getAttribute('data-target'); this is the same as above
     navigateTo(page);
   })
+
+  // go to show page
+  const questionsContainer = document.querySelector('.question-list');
+  questionsContainer.addEventListener('click', (e) => {
+    e.preventDefault();
+    const target = e.target;
+    const questionATag = target.closest('a')
+    const questionId = questionATag.dataset.id;
+    Question.show(questionId)
+      .then(question => {
+        renderQuestionShow(question);
+        navigateTo('question-show');
+      })
+  })
 })
 
 function navigateTo(id) {
@@ -107,10 +124,36 @@ function renderQuestionsIndex(questions) {
   const questionsList = questions.map(q => {
     return `
       <li>
-        <span>${q.id}</span>
-        ${q.title}
+        <a class='question-link' data-id="${q.id}" href="#"> 
+          <span>${q.id}</span>
+          ${q.title}
+        </a>
       </li>
     `
   }).join('');
   questionsContainer.innerHTML = questionsList;
+}
+
+function renderQuestionShow(question) {
+  const questionShowPageContainer = document.querySelector('#question-show');
+  const questionShowPageHTML = `
+    <h2>${question.title}</h2>
+    <p>${question.body}</p>
+    <small>Authored by: ${question.author.full_name}</small>
+    <small>Liked by: ${question.like_count}</small>
+    <hr style="height:2px;border-width:0;color:gray;background-color:gray">
+    <div>
+      <ul>
+        ${question.answers.map(a => {
+          return `
+            <li>
+              <p>${a.body}</p>
+              <small>${a.author_full_name}</small>
+            </li>
+          `
+        }).join('')}
+      </ul>
+    </div>
+  `
+  questionShowPageContainer.innerHTML = questionShowPageHTML;
 }
