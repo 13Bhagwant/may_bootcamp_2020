@@ -1,0 +1,13 @@
+body {
+  background-color: #eee;
+}
+
+.page {
+  display: none;
+}
+
+.page.active {
+  display: block;
+}
+
+

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link rel="stylesheet" href="./styles/main.css">
+  <script src="https://kit.fontawesome.com/657aa9d631.js" crossorigin="anonymous"></script>
+  <script src="./scripts/main.js"></script>
+  <title>Amazing Amazon SPA</title>
+</head>
+<body>
+  <div class="container">
+    <nav class="nav nav-pills nav-fill">
+      <a data-target="home" class="nav-item nav-link active" href="#">Home</a>
+      <a data-target="product-index" class="nav-item nav-link" href="#">Products</a>
+      <a data-target="product-new" class="nav-item nav-link" href="#">New Product</a>
+    </nav>
+
+    <div id="home" class="page">
+      <h1 class="mt-4">Welcome to Amazing Amazon</h1>
+    </div>
+    <div id="product-index" class="list-group page"></div>
+    <div id="product-show" class="page"></div>
+    <div id="product-new" class="page">
+      <form id="new-product-form">
+        <div class="form-group">
+          <label for="product-title">Title</label>
+          <input name="title" type="text" class="form-control" id="product-title">
+        </div>
+        <div class="form-group">
+          <label for="product-description">Description</label>
+          <input name="description" type="text" class="form-control" id="product-description">
+          <small class="form-text text-muted">Minimum 10 characters</small>
+        </div>
+        <div class="form-group">
+          <label for="product-price">Price</label>
+          <input name="price" type="number" class="form-control" id="product-price">
+        </div>
+        <button type="submit" class="btn btn-success">Create</button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>
