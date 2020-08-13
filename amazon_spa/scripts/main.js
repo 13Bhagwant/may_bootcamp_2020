@@ -94,13 +94,22 @@ document.addEventListener('DOMContentLoaded', function() {
 
     Product
       .create(params)
-      .then(product => Product.show(product.id))
       .then(product => {
-        renderProductShow(product)
-        navigateTo('product-show')
-        return Product.index()
+        newProductForm.reset()
+        return Promise.all([Product.index(), Product.show(product.id)])
       })
-      .then(products => renderProductsIndex(products))
+      .then(array => {
+        const [ products, product ] = array
+
+        // const [ a, b ] = [1, 3]
+        // const a = 1
+        // const b = 3
+        renderProductShow(product)
+        renderProductsIndex(products)
+        navigateTo('product-show')
+        // navigateTo('product-show')
+        // return Product.index()
+      })
   })
 })
 
